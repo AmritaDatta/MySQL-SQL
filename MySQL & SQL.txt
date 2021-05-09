@@ -1,0 +1,628 @@
+Enter password: ***********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 10
+Server version: 8.0.23 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2021, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+1) mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| amritadb           |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.05 sec)
+
+2) mysql> create database learn;
+Query OK, 1 row affected (0.03 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| amritadb           |
+| information_schema |
+| learn              |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+6 rows in set (0.01 sec)
+
+3) mysql> use learn;
+Database changed
+
+4) mysql> drop database amritadb;
+Query OK, 0 rows affected (0.04 sec)
+
+5) mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| learn              |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.00 sec)
+
+6) mysql> create table employee(id int(11) primary key, name varchar(100) not null, city varchar(50));
+Query OK, 0 rows affected, 1 warning (0.04 sec)
+
+7) mysql> show tables;
++-----------------+
+| Tables_in_learn |
++-----------------+
+| employee        |
++-----------------+
+1 row in set (0.01 sec)
+
+
+8) mysql> desc employee;
++-------+--------------+------+-----+---------+-------+
+| Field | Type         | Null | Key | Default | Extra |
++-------+--------------+------+-----+---------+-------+
+| id    | int          | NO   | PRI | NULL    |       |
+| name  | varchar(100) | NO   |     | NULL    |       |
+| city  | varchar(50)  | YES  |     | NULL    |       |
++-------+--------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+9) mysql> alter table employee rename to student;
+Query OK, 0 rows affected (0.02 sec)
+
+10)mysql> show tables;
++-----------------+
+| Tables_in_learn |
++-----------------+
+| student         |
++-----------------+
+1 row in set (0.01 sec)
+
+11) mysql> truncate table student;
+Query OK, 0 rows affected (0.03 sec)
+
+12) mysql> desc student;
++-------+--------------+------+-----+---------+-------+
+| Field | Type         | Null | Key | Default | Extra |
++-------+--------------+------+-----+---------+-------+
+| id    | int          | NO   | PRI | NULL    |       |
+| name  | varchar(100) | NO   |     | NULL    |       |
+| city  | varchar(50)  | YES  |     | NULL    |       |
++-------+--------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+13) mysql> insert into student(id, city, name) values(12, 'delhi', 'Amri');
+Query OK, 1 row affected (0.01 sec)
+
+14) mysql> insert into student values(13, 'kanpur', 'jui');
+Query OK, 1 row affected (0.01 sec)
+
+15) mysql> select * from student;
++----+--------+-------+
+| id | name   | city  |
++----+--------+-------+
+| 12 | Amri   | delhi |
+| 13 | kanpur | jui   |
++----+--------+-------+
+2 rows in set (0.01 sec)
+
+16) mysql> alter table student add country varchar(50);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+17) mysql> select * from student;
++----+--------+-------+---------+
+| id | name   | city  | country |
++----+--------+-------+---------+
+| 12 | Amri   | delhi | NULL    |
+| 13 | kanpur | jui   | NULL    |
++----+--------+-------+---------+
+2 rows in set (0.01 sec)
+
+
+18) mysql> alter table student rename column country to land;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+19) mysql> select * from student;
++----+--------+-------+------+
+| id | name   | city  | land |
++----+--------+-------+------+
+| 12 | Amri   | delhi | NULL |
+| 13 | kanpur | jui   | NULL |
++----+--------+-------+------+
+2 rows in set (0.01 sec)
+
+
+20) mysql> update student set land='india' where id=12;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+21) mysql> select * from student;
++----+--------+-------+-------+
+| id | name   | city  | land  |
++----+--------+-------+-------+
+| 12 | Amri   | delhi | india |
+| 13 | kanpur | jui   | NULL  |
++----+--------+-------+-------+
+2 rows in set (0.01 sec)
+
+22) mysql> update student set name='jui' where id=13;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+23) mysql> select * from student;
++----+------+-------+-------+
+| id | name | city  | land  |
++----+------+-------+-------+
+| 12 | Amri | delhi | india |
+| 13 | jui  | jui   | NULL  |
++----+------+-------+-------+
+2 rows in set (0.00 sec)
+
+24) mysql> update student set city='kanpur' where name='jui';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+25) mysql> select * from student;
++----+------+--------+-------+
+| id | name | city   | land  |
++----+------+--------+-------+
+| 12 | Amri | delhi  | india |
+| 13 | jui  | kanpur | NULL  |
++----+------+--------+-------+
+2 rows in set (0.00 sec)
+
+26) mysql> delete from student where id=12;
+Query OK, 1 row affected (0.01 sec)
+
+27) mysql> select * from student;
++----+------+--------+------+
+| id | name | city   | land |
++----+------+--------+------+
+| 13 | jui  | kanpur | NULL |
++----+------+--------+------+
+1 row in set (0.00 sec)
+
+28) mysql> insert into student values(14, 'kanpur', 'Tui');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+29) mysql> insert into student values(14, 'Tui', 'kanpur', 'india');
+Query OK, 1 row affected (0.01 sec)
+
+
+30) mysql> insert into student values(15, 'lui', 'banpur', 'bd');
+Query OK, 1 row affected (0.00 sec)
+
+31) mysql> insert into student values(16, 'rui', 'kanpur', 'germany');
+Query OK, 1 row affected (0.01 sec)
+
+32) mysql> select * from student;
++----+------+--------+---------+
+| id | name | city   | land    |
++----+------+--------+---------+
+| 13 | jui  | kanpur | NULL    |
+| 14 | Tui  | kanpur | india   |
+| 15 | lui  | banpur | bd      |
+| 16 | rui  | kanpur | germany |
++----+------+--------+---------+
+4 rows in set (0.00 sec)
+
+33) mysql> update student set land='india' where id=13;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+34) mysql>  select * from student;
++----+------+--------+---------+
+| id | name | city   | land    |
++----+------+--------+---------+
+| 13 | jui  | kanpur | india   |
+| 14 | Tui  | kanpur | india   |
+| 15 | lui  | banpur | bd      |
+| 16 | rui  | kanpur | germany |
++----+------+--------+---------+
+4 rows in set (0.01 sec)
+
+35)mysql> select name, city, land from student where land='india';
++------+--------+-------+
+| name | city   | land  |
++------+--------+-------+
+| jui  | kanpur | india |
+| Tui  | kanpur | india |
++------+--------+-------+
+2 rows in set (0.00 sec)
+
+36) mysql> select name as "username", city as "Cityname" from student;
++----------+----------+
+| username | Cityname |
++----------+----------+
+| jui      | kanpur   |
+| Tui      | kanpur   |
+| lui      | banpur   |
+| rui      | kanpur   |
++----------+----------+
+4 rows in set (0.00 sec)
+
+37) mysql> select distinct(land) from student;
++---------+
+| land    |
++---------+
+| india   |
+| bd      |
+| germany |
++---------+
+3 rows in set (0.01 sec)
+
+38) mysql> select * from student where city='banpur' and land='india';
+Empty set (0.00 sec)
+
+39) mysql> select * from student where city='kanpur' and land='india';
++----+------+--------+-------+
+| id | name | city   | land  |
++----+------+--------+-------+
+| 13 | jui  | kanpur | india |
+| 14 | Tui  | kanpur | india |
++----+------+--------+-------+
+2 rows in set (0.00 sec)
+
+40) mysql> select * from student where city='banpur' or land='india';
++----+------+--------+-------+
+| id | name | city   | land  |
++----+------+--------+-------+
+| 13 | jui  | kanpur | india |
+| 14 | Tui  | kanpur | india |
+| 15 | lui  | banpur | bd    |
++----+------+--------+-------+
+3 rows in set (0.00 sec)
+
+41) mysql> select * from student where id>=13 and id<=14;
++----+------+--------+-------+
+| id | name | city   | land  |
++----+------+--------+-------+
+| 13 | jui  | kanpur | india |
+| 14 | Tui  | kanpur | india |
++----+------+--------+-------+
+2 rows in set (0.01 sec)
+
+42) mysql> select * from student where id between 13 and 14;
++----+------+--------+-------+
+| id | name | city   | land  |
++----+------+--------+-------+
+| 13 | jui  | kanpur | india |
+| 14 | Tui  | kanpur | india |
++----+------+--------+-------+
+2 rows in set (0.01 sec)
+
+43) mysql> select * from student where id=13 or id=14 or id=15;
++----+------+--------+-------+
+| id | name | city   | land  |
++----+------+--------+-------+
+| 13 | jui  | kanpur | india |
+| 14 | Tui  | kanpur | india |
+| 15 | lui  | banpur | bd    |
++----+------+--------+-------+
+3 rows in set (0.00 sec)
+
+44) mysql> select * from student where id in(12, 13, 15);
++----+------+--------+-------+
+| id | name | city   | land  |
++----+------+--------+-------+
+| 13 | jui  | kanpur | india |
+| 15 | lui  | banpur | bd    |
++----+------+--------+-------+
+2 rows in set (0.00 sec)
+
+45) mysql> select * from student;
++----+------+--------+---------+
+| id | name | city   | land    |
++----+------+--------+---------+
+| 13 | jui  | kanpur | india   |
+| 14 | Tui  | kanpur | india   |
+| 15 | lui  | banpur | bd      |
+| 16 | rui  | kanpur | germany |
++----+------+--------+---------+
+4 rows in set (0.00 sec)
+
+46) mysql> select * from student where id in(13, 14, 16);
++----+------+--------+---------+
+| id | name | city   | land    |
++----+------+--------+---------+
+| 13 | jui  | kanpur | india   |
+| 14 | Tui  | kanpur | india   |
+| 16 | rui  | kanpur | germany |
++----+------+--------+---------+
+3 rows in set (0.00 sec)
+
+47) mysql> select * from student limit 3;
++----+------+--------+-------+
+| id | name | city   | land  |
++----+------+--------+-------+
+| 13 | jui  | kanpur | india |
+| 14 | Tui  | kanpur | india |
+| 15 | lui  | banpur | bd    |
++----+------+--------+-------+
+3 rows in set (0.00 sec)
+
+48) mysql>  select * from student limit 2 offset 2;
++----+------+--------+---------+
+| id | name | city   | land    |
++----+------+--------+---------+
+| 15 | lui  | banpur | bd      |
+| 16 | rui  | kanpur | germany |
++----+------+--------+---------+
+2 rows in set (0.00 sec)
+
+49) mysql>  select * from student order by id desc;
++----+------+--------+---------+
+| id | name | city   | land    |
++----+------+--------+---------+
+| 16 | rui  | kanpur | germany |
+| 15 | lui  | banpur | bd      |
+| 14 | Tui  | kanpur | india   |
+| 13 | jui  | kanpur | india   |
++----+------+--------+---------+
+4 rows in set (0.00 sec)
+
+50) mysql> select * from student order by id asc;
++----+------+--------+---------+
+| id | name | city   | land    |
++----+------+--------+---------+
+| 13 | jui  | kanpur | india   |
+| 14 | Tui  | kanpur | india   |
+| 15 | lui  | banpur | bd      |
+| 16 | rui  | kanpur | germany |
++----+------+--------+---------+
+4 rows in set (0.00 sec)
+
+51) mysql> select * from student order by id desc;
++----+------+--------+---------+
+| id | name | city   | land    |
++----+------+--------+---------+
+| 16 | rui  | kanpur | germany |
+| 15 | lui  | banpur | bd      |
+| 14 | Tui  | kanpur | india   |
+| 13 | jui  | kanpur | india   |
++----+------+--------+---------+
+4 rows in set (0.00 sec)
+
+52) mysql> select * from student order by name desc;
++----+------+--------+---------+
+| id | name | city   | land    |
++----+------+--------+---------+
+| 14 | Tui  | kanpur | india   |
+| 16 | rui  | kanpur | germany |
+| 15 | lui  | banpur | bd      |
+| 13 | jui  | kanpur | india   |
++----+------+--------+---------+
+4 rows in set (0.01 sec)
+
+53) mysql> select * from student order by id desc limit 2;
++----+------+--------+---------+
+| id | name | city   | land    |
++----+------+--------+---------+
+| 16 | rui  | kanpur | germany |
+| 15 | lui  | banpur | bd      |
++----+------+--------+---------+
+2 rows in set (0.00 sec)
+
+54) mysql> select * from student;
++----+------+--------+---------+
+| id | name | city   | land    |
++----+------+--------+---------+
+| 13 | jui  | kanpur | india   |
+| 14 | Tui  | kanpur | india   |
+| 15 | lui  | banpur | bd      |
+| 16 | rui  | kanpur | germany |
++----+------+--------+---------+
+4 rows in set (0.00 sec)
+
+5) mysql> select * from student where name like 't%';
++----+------+--------+-------+
+| id | name | city   | land  |
++----+------+--------+-------+
+| 14 | Tui  | kanpur | india |
++----+------+--------+-------+
+1 row in set (0.01 sec)
+
+56) mysql> select * from student where name like '_t%';
+Empty set (0.00 sec)
+
+57) mysql> select * from student where name like '_u%';
++----+------+--------+---------+
+| id | name | city   | land    |
++----+------+--------+---------+
+| 13 | jui  | kanpur | india   |
+| 14 | Tui  | kanpur | india   |
+| 15 | lui  | banpur | bd      |
+| 16 | rui  | kanpur | germany |
++----+------+--------+---------+
+4 rows in set (0.00 sec)
+
+58) mysql> select * from student where land like '%n_';
++----+------+--------+---------+
+| id | name | city   | land    |
++----+------+--------+---------+
+| 16 | rui  | kanpur | germany |
++----+------+--------+---------+
+1 row in set (0.00 sec)
+
+59) mysql> select * from student;
++----+------+--------+---------+
+| id | name | city   | land    |
++----+------+--------+---------+
+| 13 | jui  | kanpur | india   |
+| 14 | Tui  | kanpur | india   |
+| 15 | lui  | banpur | bd      |
+| 16 | rui  | kanpur | germany |
++----+------+--------+---------+
+4 rows in set (0.00 sec)
+
+60) mysql> select SUM(id) from student;
++---------+
+| SUM(id) |
++---------+
+|      58 |
++---------+
+1 row in set (0.01 sec)
+
+61) mysql> select SUM(id) as "Total salary" from student;
++--------------+
+| Total salary |
++--------------+
+|           58 |
++--------------+
+1 row in set (0.00 sec)
+
+62) mysql> select AVG(id) as "Total salary" from student;
++--------------+
+| Total salary |
++--------------+
+|      14.5000 |
++--------------+
+1 row in set (0.00 sec)
+
+63) mysql> select COUNT(id) from student;
++--------------+
+| Total salary |
++--------------+
+|            4 |
++--------------+
+1 row in set (0.00 sec)
+
+64) mysql> select MIN(id) from student;
++--------------+
+| Total salary |
++--------------+
+|           13 |
++--------------+
+1 row in set (0.01 sec)
+
+65) mysql> select MAX(id) from student;
++--------------+
+| Total salary |
++--------------+
+|           16 |
++--------------+
+1 row in set (0.00 sec)
+
+66) mysql> select name from student where id=(select MAX(id) from student); // nested condition
++------+
+| name |
++------+
+| rui  |
++------+
+1 row in set (0.01 sec)
+
+67) mysql> select * from student;
++----+------+--------+---------+
+| id | name | city   | land    |
++----+------+--------+---------+
+| 13 | jui  | kanpur | india   |
+| 14 | Tui  | kanpur | india   |
+| 15 | lui  | banpur | bd      |
+| 16 | rui  | kanpur | germany |
++----+------+--------+---------+
+4 rows in set (0.00 sec)
+
+68) mysql> create table laptop(lid int primary key, lmodel varchar(200), stuId int, foreign key(stuID) references student(id)); // join two tables
+Query OK, 0 rows affected (0.04 sec)
+
+69) mysql> show tables;
++-----------------+
+| Tables_in_learn |
++-----------------+
+| laptop          |
+| student         |
++-----------------+
+2 rows in set (0.01 sec)
+
+70) mysql> desc laptop;
++--------+--------------+------+-----+---------+-------+
+| Field  | Type         | Null | Key | Default | Extra |
++--------+--------------+------+-----+---------+-------+
+| lid    | int          | NO   | PRI | NULL    |       |
+| lmodel | varchar(200) | YES  |     | NULL    |       |
+| stuId  | int          | YES  | MUL | NULL    |       |
++--------+--------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+
+71) mysql> insert into laptop values (1234, 'HP', 13);
+Query OK, 1 row affected (0.01 sec)
+
+72) mysql> insert into laptop values (1244, 'DELL', 15);
+Query OK, 1 row affected (0.00 sec)
+
+73) mysql> insert into laptop values (1254, 'LENOVO', 16);
+Query OK, 1 row affected (0.01 sec)
+
+74) mysql> select * from laptop;
++------+--------+-------+
+| lid  | lmodel | stuId |
++------+--------+-------+
+| 1234 | HP     |    13 |
+| 1244 | DELL   |    15 |
+| 1254 | LENOVO |    16 |
++------+--------+-------+
+3 rows in set (0.00 sec)
+
+75) mysql> select student.name, student.city, laptop.lmodel from student, laptop where student.id=laptop.stuId;
++------+--------+--------+
+| name | city   | lmodel |
++------+--------+--------+
+| jui  | kanpur | HP     |
+| lui  | banpur | DELL   |
+| rui  | kanpur | LENOVO |
++------+--------+--------+
+3 rows in set (0.01 sec)
+
+76) mysql> select student.name, student.city, laptop.lmodel from student, laptop where student.id=laptop.stuId and student.name='lui';
++------+--------+--------+
+| name | city   | lmodel |
++------+--------+--------+
+| lui  | banpur | DELL   |
++------+--------+--------+
+1 row in set (0.00 sec)
+
+77) mysql> select student.name, student.city, laptop.lmodel from student join laptop on student.id=laptop.stuId;
++------+--------+--------+
+| name | city   | lmodel |
++------+--------+--------+
+| jui  | kanpur | HP     |
+| lui  | banpur | DELL   |
+| rui  | kanpur | LENOVO |
++------+--------+--------+
+3 rows in set (0.00 sec)
+
+78) mysql> select student.name, student.city, laptop.lmodel from student inner join laptop on student.id=laptop.stuId;
++------+--------+--------+
+| name | city   | lmodel |
++------+--------+--------+
+| jui  | kanpur | HP     |
+| lui  | banpur | DELL   |
+| rui  | kanpur | LENOVO |
++------+--------+--------+
+3 rows in set (0.00 sec)
+
+
+79) mysql> select student.name, laptop.lmodel from student inner join laptop on student.id=laptop.stuId;
++------+--------+
+| name | lmodel |
++------+--------+
+| jui  | HP     |
+| lui  | DELL   |
+| rui  | LENOVO |
++------+--------+
+3 rows in set (0.00 sec)
+
